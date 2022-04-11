@@ -1,0 +1,56 @@
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.stocksGridContainer {
+  padding-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-row-gap: 0.5em;
+  grid-column-gap: 1em;
+
+  .stockInfo {
+    padding: 10px;
+
+    .stockInfoRow {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .stockSymbol {
+        margin-bottom: 0 !important;
+      }
+
+      .stockFullName {
+        padding-left: 8px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .paginationContainer {
+    background: white;
+    box-shadow: 1px 1px #a9a9a9;
+    position: fixed;
+    top: 55px;
+    padding-top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  .stocksGridContainer {
+    display: flex;
+    flex-direction: column;
+    padding-top: 147px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .paginationContainer {
+    top: 88px;
+  }
+}

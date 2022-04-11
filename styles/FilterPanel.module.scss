@@ -1,0 +1,26 @@
+.filterPanelContainer {
+  .filterPanel {
+    display: flex;
+    flex-direction: row;
+
+    .filterInputs {
+      display: flex;
+      flex-direction: row;
+
+      .inputContainer {
+        width: 210px;
+      }
+    }
+
+    .searchButton {
+      height: 50px;
+    }
+  }
+}
+@media screen and (max-width: 840px) {
+  .filterPanelContainer {
+    position: fixed !important;
+    z-index: 1000;
+    width: 100%;
+  }
+}
