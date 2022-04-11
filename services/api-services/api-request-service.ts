@@ -3,15 +3,20 @@ import { EToroAssets, InstrumentDisplayData, InstrumentID, PricesObject } from '
 
 class ApiRequestService {
   loadEtoroAssetsInBulks = async (): Promise<InstrumentDisplayData[]> => {
-    let bulkNumber = 1
-    const totalBulks = 8 // assume 4k assets, 4k / 500 = 8 assets per batch
-    const InstrumentDisplayDatas: InstrumentDisplayData[] = []
-    while (bulkNumber <= totalBulks) {
-      const eToroAssets: EToroAssets = await getEtoroAssets(bulkNumber, totalBulks)
-      InstrumentDisplayDatas.push(...eToroAssets.InstrumentDisplayDatas)
-      bulkNumber++
+    try {
+      let bulkNumber = 1
+      const totalBulks = 8 // assume 4k assets, 4k / 500 = 8 assets per batch
+      const InstrumentDisplayDatas: InstrumentDisplayData[] = []
+      while (bulkNumber <= totalBulks) {
+        const eToroAssets: EToroAssets = await getEtoroAssets(bulkNumber, totalBulks)
+        InstrumentDisplayDatas.push(...eToroAssets.InstrumentDisplayDatas)
+        bulkNumber++
+      }
+      return InstrumentDisplayDatas
+    } catch (error) {
+      console.log('Error on fetching assaets')
+      return []
     }
-    return InstrumentDisplayDatas
   }
 
   loadAssetPricesInBulks = async (instrumentIds: InstrumentID[]) => {
@@ -34,7 +39,8 @@ class ApiRequestService {
 
       return pricesArray
     } catch (error) {
-      console.log(error)
+      console.log('Error on fetching prices')
+      return []
     }
   }
 }

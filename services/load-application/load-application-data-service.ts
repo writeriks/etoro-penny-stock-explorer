@@ -16,7 +16,7 @@ class LoadApplicationDataService {
       (instrumentData) => instrumentData.InstrumentID
     )
 
-    const prices = await apiRequestService.loadAssetPricesInBulks(InstrumentIDs)
+    const prices: PricesObject[] = await apiRequestService.loadAssetPricesInBulks(InstrumentIDs)
 
     const InstrumentDisplayDataWithPrices = this.mergePricesWithAssets(filteredInsrumentDisplayDatas, prices)
     const upToDateFilteredInstrumentWithPrices = this.filterNotUpdatedAssets(InstrumentDisplayDataWithPrices)
