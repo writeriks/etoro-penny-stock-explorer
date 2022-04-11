@@ -22,7 +22,7 @@ const InputSection = () => {
           <TextField
             id="top-limit-amount"
             error
-            helperText="Can't be lower than bottom limit"
+            helperText="Can't be lower than"
             variant="filled"
             value={topThreshold || 0}
             onChange={(e) => dispatch(setTopThreshold(parseInt(e.target.value)))}

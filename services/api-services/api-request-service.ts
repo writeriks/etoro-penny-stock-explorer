@@ -15,23 +15,27 @@ class ApiRequestService {
   }
 
   loadAssetPricesInBulks = async (instrumentIds: InstrumentID[]) => {
-    const totalCount = instrumentIds.length
-    // max limit of a single batch
-    const batchLimit = Math.floor(totalCount / 10)
-    let lowestLimit = 0
-    let highestLimit = batchLimit
-    const pricesArray: PricesObject[] = []
-    let batchNumber = 1
-    while (highestLimit < totalCount) {
-      const batchedStocks: InstrumentID[] = instrumentIds.slice(lowestLimit, highestLimit)
-      const pricesResp = await getEtoroPrices(batchedStocks)
-      pricesArray.push(...pricesResp)
-      lowestLimit += batchLimit
-      highestLimit += batchLimit
-      batchNumber++
-    }
+    try {
+      const totalCount = instrumentIds.length
+      // max limit of a single batch
+      const batchLimit = Math.floor(totalCount / 15)
+      let lowestLimit = 0
+      let highestLimit = batchLimit
+      const pricesArray: PricesObject[] = []
+      let batchNumber = 1
+      while (highestLimit < totalCount) {
+        const batchedStocks: InstrumentID[] = instrumentIds.slice(lowestLimit, highestLimit)
+        const pricesResp = await getEtoroPrices(batchedStocks)
+        pricesArray.push(...pricesResp)
+        lowestLimit += batchLimit
+        highestLimit += batchLimit
+        batchNumber++
+      }
 
-    return pricesArray
+      return pricesArray
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
