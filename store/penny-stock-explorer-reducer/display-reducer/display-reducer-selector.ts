@@ -11,6 +11,11 @@ class DisplayReducerSelector {
     pennyStockExplorerReducerSelector.getDisplayReducer,
     (display) => display.bottomThreshold
   )
+  getErrorMessage = createSelector(
+    pennyStockExplorerReducerSelector.getDisplayReducer,
+    (display) => display.errorMessage
+  )
+  getAssetName = createSelector(pennyStockExplorerReducerSelector.getDisplayReducer, (display) => display.assetName)
 }
 
 const displayReducerSelector = new DisplayReducerSelector()

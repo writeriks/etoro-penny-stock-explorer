@@ -1,7 +1,9 @@
 import React from 'react'
 
-import { Accordion, AccordionSummary, Button, Typography } from '@mui/material'
+import { Accordion, AccordionSummary, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { ErroorMessage } from './error-message'
+import SearchButton from './search-button'
 
 import InputSection from './input-section'
 
@@ -18,10 +20,8 @@ const FilterPanel = () => {
         </AccordionSummary>
         <div className={styles.filterPanel}>
           <InputSection />
-          <Button onClick={() => console.log('CLICK')} className={styles.searchButton} variant="contained">
-            Search
-          </Button>
-          <a>asdasdssadasd</a>
+          <SearchButton />
+          <ErroorMessage />
         </div>
       </Accordion>
     </div>

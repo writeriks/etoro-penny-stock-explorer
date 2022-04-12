@@ -12,6 +12,7 @@ const StockExplorerMain: React.FC<StockExplorerMainProps> = () => {
   return (
     <div>
       <FilterPanel />
+      <p>Sort by</p>
       <StocksGridList />
     </div>
   )

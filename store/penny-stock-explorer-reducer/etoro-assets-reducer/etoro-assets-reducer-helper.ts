@@ -3,20 +3,10 @@ import { InstrumentDisplayData } from '../../../services/api-services/api-servic
 class EToroAssetsReducerHelper {
   filterAssetsForThresholds = (
     tempAllAssets: InstrumentDisplayData[],
-    topThreshold: number | undefined,
-    bottomThreshold: number | undefined
-  ): InstrumentDisplayData[] => {
-    let filteredAssets: InstrumentDisplayData[] = []
-
-    if (topThreshold && bottomThreshold) {
-      filteredAssets = tempAllAssets.filter((asset) => asset.Price <= topThreshold && asset.Price >= bottomThreshold)
-    } else if (topThreshold) {
-      filteredAssets = tempAllAssets.filter((asset) => asset.Price <= topThreshold)
-    } else if (bottomThreshold) {
-      filteredAssets = tempAllAssets.filter((asset) => asset.Price >= bottomThreshold)
-    }
-    return filteredAssets
-  }
+    topThreshold = 10,
+    bottomThreshold = 0
+  ): InstrumentDisplayData[] =>
+    tempAllAssets.filter((asset) => asset.Price <= topThreshold && asset.Price >= bottomThreshold)
 }
 
 const eToroAssetsReducerHelper = new EToroAssetsReducerHelper()

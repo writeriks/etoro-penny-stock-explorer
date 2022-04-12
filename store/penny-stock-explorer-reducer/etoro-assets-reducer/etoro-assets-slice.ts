@@ -19,18 +19,29 @@ const eToroAssetsSlice = createSlice({
     setAllAssets: (state, action: PayloadAction<InstrumentDisplayData[]>) => {
       state.allAssets = action.payload
     },
-    filterAssetsByPrice: (state, action: PayloadAction<{ topThreshold?: number; bottomThreshold?: number }>) => {
+    filterAssetsByPrice: (state, action: PayloadAction<{ topThreshold: number; bottomThreshold: number }>) => {
       const { topThreshold, bottomThreshold } = action.payload
 
       const tempAllAssets = [...state.allAssets]
 
-      const filtered = eToroAssetsReducerHelper.filterAssetsForThresholds(tempAllAssets, topThreshold, bottomThreshold)
+      const filtered = tempAllAssets.filter((asset) => asset.Price <= topThreshold && asset.Price >= bottomThreshold)
+
+      state.filteredAssets = filtered
+    },
+    filterAssetsByName: (state, action: PayloadAction<string>) => {
+      const tempAllAssets = [...state.allAssets]
+
+      const filtered = tempAllAssets.filter(
+        (asset) =>
+          asset.InstrumentDisplayName.toLowerCase().includes(action.payload.toLowerCase()) ||
+          asset.SymbolFull.toLowerCase().includes(action.payload.toLowerCase())
+      )
 
       state.filteredAssets = filtered
     },
   },
 })
 
-export const { setAllAssets, filterAssetsByPrice } = eToroAssetsSlice.actions
+export const { setAllAssets, filterAssetsByPrice, filterAssetsByName } = eToroAssetsSlice.actions
 
 export default eToroAssetsSlice.reducer

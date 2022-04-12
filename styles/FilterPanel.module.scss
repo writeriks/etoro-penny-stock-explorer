@@ -2,18 +2,27 @@
   .filterPanel {
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     .filterInputs {
       display: flex;
       flex-direction: row;
 
       .inputContainer {
-        width: 210px;
+        width: 80px;
+      }
+
+      .nameSearchInputContainer {
+        width: 120px;
       }
     }
 
     .searchButton {
       height: 50px;
+    }
+
+    .errorMessage {
+      padding-left: 10px;
     }
   }
 }
@@ -22,5 +31,26 @@
     position: fixed !important;
     z-index: 1000;
     width: 100%;
+
+    .filterPanel {
+      flex-direction: column;
+
+      .filterInputs {
+        flex-direction: column;
+        width: 100%;
+
+        .inputContainer {
+          width: 100%;
+        }
+
+        .nameSearchInputContainer {
+          width: 100%;
+        }
+      }
+
+      .searchButton {
+        width: 100%;
+      }
+    }
   }
 }
