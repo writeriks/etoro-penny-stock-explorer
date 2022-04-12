@@ -1,4 +1,5 @@
 import { store } from '../../store/create-store'
+import { setErrorMEssage } from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
 import {
   filterAssetsByName,
   filterAssetsByPrice,
@@ -7,7 +8,10 @@ import { filterObject } from '../types/types'
 
 class FilterPanelHelper {
   handleSearch = ({ assetName, topThreshold, bottomThreshold }: filterObject) => {
-    this.validateData(topThreshold, bottomThreshold)
+    const isValidated = this.validateData(topThreshold, bottomThreshold)
+    if (!isValidated) {
+      return
+    }
     if (assetName) {
       store.dispatch(filterAssetsByName(assetName))
       return
@@ -15,10 +19,13 @@ class FilterPanelHelper {
     store.dispatch(filterAssetsByPrice({ topThreshold, bottomThreshold }))
   }
 
-  validateData = (topThreshold: number, bottomThreshold: number) => {
+  validateData = (topThreshold: number, bottomThreshold: number): boolean => {
     if (topThreshold <= bottomThreshold) {
-      throw 'Top limit can not be below or equal to Bottom limit'
+      store.dispatch(setErrorMEssage('Top limit can not be lower or equal than Bottom limit'))
+      return false
     }
+    store.dispatch(setErrorMEssage(''))
+    return true
   }
 }
 
