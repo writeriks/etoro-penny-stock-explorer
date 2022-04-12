@@ -29,9 +29,11 @@ const InputSection = () => {
             value={assetName}
             onChange={(e) => dispatch(setAssetName(e.target.value))}
             endAdornment={
-              <IconButton onClick={() => dispatch(setAssetName(''))}>
-                <ClearIcon />
-              </IconButton>
+              !!assetName && (
+                <IconButton onClick={() => dispatch(setAssetName(''))}>
+                  <ClearIcon className={styles.clearIconContainer} />
+                </IconButton>
+              )
             }
           />
         </FormControl>
