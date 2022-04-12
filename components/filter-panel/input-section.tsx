@@ -1,6 +1,6 @@
 import React from 'react'
 import { AccordionDetails, FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material'
-import ClearIcon from '@mui/icons-material/clear'
+import ClearIcon from '@mui/icons-material/Clear'
 
 import styles from '../../styles/FilterPanel.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
