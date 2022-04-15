@@ -16,6 +16,7 @@ class DisplayReducerSelector {
     (display) => display.errorMessage
   )
   getAssetName = createSelector(pennyStockExplorerReducerSelector.getDisplayReducer, (display) => display.assetName)
+  getPageNumber = createSelector(pennyStockExplorerReducerSelector.getDisplayReducer, (display) => display.pageNumber)
 }
 
 const displayReducerSelector = new DisplayReducerSelector()

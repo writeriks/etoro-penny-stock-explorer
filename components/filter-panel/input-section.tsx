@@ -2,14 +2,14 @@ import React from 'react'
 import { AccordionDetails, FormControl, IconButton, Input, InputAdornment, InputLabel } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Clear'
 
-import styles from '../../styles/FilterPanel.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { setAssetName } from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
 import displayReducerSelector from '../../store/penny-stock-explorer-reducer/display-reducer/display-reducer-selector'
-import {
-  setAssetName,
-  setBottomThreshold,
-  setTopThreshold,
-} from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
+
+import filterPanelHelper from './filter-panel-helper'
+
+import styles from '../../styles/FilterPanel.module.scss'
 
 const InputSection = () => {
   const topThreshold = useSelector(displayReducerSelector.getTopThreshold)
@@ -44,8 +44,8 @@ const InputSection = () => {
           <Input
             id="top-limit-amount"
             error
-            value={topThreshold || 0}
-            onChange={(e) => dispatch(setTopThreshold(parseInt(e.target.value)))}
+            value={topThreshold}
+            onChange={(e) => filterPanelHelper.onTopThresholdChange(e.target.value)}
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
           />
         </FormControl>
@@ -55,8 +55,8 @@ const InputSection = () => {
           <InputLabel htmlFor="bottom-limit-amount">Bottom Limit</InputLabel>
           <Input
             error
-            value={bottomThreshold || 0}
-            onChange={(e) => dispatch(setBottomThreshold(parseInt(e.target.value)))}
+            value={bottomThreshold}
+            onChange={(e) => filterPanelHelper.onBottomThresholdChange(e.target.value)}
             id="bottom-limit-amount"
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
           />

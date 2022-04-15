@@ -10,6 +10,10 @@ class EToroAssetsReducerSelector {
     pennyStockExplorerReducerSelector.getEtoroAssetsReducer,
     (eToroAssets) => eToroAssets.filteredAssets
   )
+  getPaginateAssets = createSelector(
+    pennyStockExplorerReducerSelector.getEtoroAssetsReducer,
+    (eToroAssets) => eToroAssets.paginatedAssets
+  )
 }
 
 const eToroAssetsReducerSelector = new EToroAssetsReducerSelector()

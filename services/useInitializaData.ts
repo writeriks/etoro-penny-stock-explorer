@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   filterAssetsByPrice,
+  paginateAssetsByLimits,
   setAllAssets,
 } from '../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-slice'
 
@@ -17,6 +18,7 @@ const useInitializeData = (InstrumentDisplayDataWithPrices: InstrumentDisplayDat
 
     const initialFilterPrice = { topThreshold: 10, bottomThreshold: 0 }
     dispatch(filterAssetsByPrice(initialFilterPrice))
+    dispatch(paginateAssetsByLimits({ lowerLimit: 0, upperLimit: 20 }))
   }, [InstrumentDisplayDataWithPrices, dispatch])
 
   useEffect(() => {

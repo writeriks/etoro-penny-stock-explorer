@@ -5,11 +5,13 @@ import eToroAssetsReducerHelper from './etoro-assets-reducer-helper'
 interface EToroAssetsState {
   allAssets: InstrumentDisplayData[]
   filteredAssets: InstrumentDisplayData[]
+  paginatedAssets: InstrumentDisplayData[]
 }
 
 const initialState: EToroAssetsState = {
   allAssets: [],
   filteredAssets: [],
+  paginatedAssets: [],
 }
 
 const eToroAssetsSlice = createSlice({
@@ -39,9 +41,16 @@ const eToroAssetsSlice = createSlice({
 
       state.filteredAssets = filtered
     },
+    paginateAssetsByLimits: (state, action: PayloadAction<{ lowerLimit: number; upperLimit: number }>) => {
+      const assets = [...state.filteredAssets]
+      const { lowerLimit, upperLimit } = action.payload
+
+      state.paginatedAssets = assets.slice(lowerLimit, upperLimit)
+    },
   },
 })
 
-export const { setAllAssets, filterAssetsByPrice, filterAssetsByName } = eToroAssetsSlice.actions
+export const { setAllAssets, filterAssetsByPrice, filterAssetsByName, paginateAssetsByLimits } =
+  eToroAssetsSlice.actions
 
 export default eToroAssetsSlice.reducer

@@ -15,7 +15,6 @@ interface PennyStockExplorerMainProps {
 
 const PennyStockExplorerMain: NextPage<PennyStockExplorerMainProps> = ({ InstrumentDisplayDataWithPrices }) => {
   useInitializeData(InstrumentDisplayDataWithPrices)
-  /* test */
   return (
     <div>
       <Head>

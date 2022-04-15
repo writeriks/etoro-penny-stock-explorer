@@ -6,6 +6,7 @@ interface DisplayState {
   bottomThreshold: number
   errorMessage: string
   assetName: string
+  pageNumber: number
 }
 
 const initialState: DisplayState = {
@@ -14,6 +15,7 @@ const initialState: DisplayState = {
   bottomThreshold: 0,
   errorMessage: '',
   assetName: '',
+  pageNumber: 1,
 }
 
 const displaySlice = createSlice({
@@ -35,9 +37,13 @@ const displaySlice = createSlice({
     setAssetName: (state, action: PayloadAction<string>) => {
       state.assetName = action.payload
     },
+    setPage: (state, action: PayloadAction<number>) => {
+      state.pageNumber = action.payload
+    },
   },
 })
 
-export const { setLoading, setTopThreshold, setBottomThreshold, setAssetName, setErrorMEssage } = displaySlice.actions
+export const { setLoading, setTopThreshold, setBottomThreshold, setAssetName, setErrorMEssage, setPage } =
+  displaySlice.actions
 
 export default displaySlice.reducer
