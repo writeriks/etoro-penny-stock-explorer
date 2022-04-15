@@ -9,7 +9,6 @@ import {
   filterAssetsByName,
   filterAssetsByPrice,
   paginateAssetsByLimits,
-  sortAssetsByPrice,
 } from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-slice'
 import { filterObject } from '../types/types'
 

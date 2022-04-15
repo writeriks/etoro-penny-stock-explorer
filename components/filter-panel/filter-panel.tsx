@@ -2,10 +2,9 @@ import React from 'react'
 
 import { Accordion, AccordionSummary, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { ErroorMessage } from './error-message'
 import SearchButton from './search-button'
-
 import InputSection from './input-section'
+import ErrorMessage from './error-message'
 
 import styles from '../../styles/FilterPanel.module.scss'
 import { useSelector } from 'react-redux'
@@ -24,7 +23,7 @@ const FilterPanel = () => {
         <div className={styles.filterPanel}>
           <InputSection />
           <SearchButton />
-          {!!errorMessage && <ErroorMessage />}
+          {!!errorMessage && <ErrorMessage />}
         </div>
       </Accordion>
     </div>

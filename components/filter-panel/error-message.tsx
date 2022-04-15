@@ -6,7 +6,7 @@ import styles from '../../styles/FilterPanel.module.scss'
 import { useSelector } from 'react-redux'
 import displayReducerSelector from '../../store/penny-stock-explorer-reducer/display-reducer/display-reducer-selector'
 
-export const ErroorMessage = () => {
+export const ErrorMessage = () => {
   const errorMessage = useSelector(displayReducerSelector.getErrorMessage)
   return (
     <Typography className={styles.errorMessage} variant="subtitle2" fontWeight={600} fontStyle={{ color: 'red' }}>
@@ -14,3 +14,5 @@ export const ErroorMessage = () => {
     </Typography>
   )
 }
+
+export default ErrorMessage
