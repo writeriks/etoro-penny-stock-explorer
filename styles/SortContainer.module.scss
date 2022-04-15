@@ -8,3 +8,15 @@
     cursor: pointer;
   }
 }
+
+@media screen and (max-width: 840px) {
+  .sortContainer {
+    padding-top: 130px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .sortContainer {
+    padding-top: 165px;
+  }
+}

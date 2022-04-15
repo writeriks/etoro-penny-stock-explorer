@@ -1,17 +1,18 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
-
-import styles from '../../styles/SortContainer.module.scss'
 import { Typography } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
-import eToroAssetsReducerSelector from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-reducer-selector'
+
 import {
   paginateAssetsByLimits,
   sortAssetsByPrice,
 } from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-slice'
 import { setPage } from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
+import eToroAssetsReducerSelector from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-reducer-selector'
+
+import styles from '../../styles/SortContainer.module.scss'
 
 const SortContainer = () => {
   const isAscendingSort = useSelector(eToroAssetsReducerSelector.getIsAscendingSort)
