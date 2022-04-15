@@ -4,6 +4,7 @@ import {
   filterAssetsByPrice,
   paginateAssetsByLimits,
   setAllAssets,
+  sortAssetsByPrice,
 } from '../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-slice'
 
 import { InstrumentDisplayData } from './api-services/api-services-types'
@@ -13,11 +14,11 @@ const useInitializeData = (InstrumentDisplayDataWithPrices: InstrumentDisplayDat
   const [isDataInitialized, setIsDataInitialized] = useState(false)
 
   const initiateData = useCallback(async (): Promise<void> => {
-    const sortedAssets = InstrumentDisplayDataWithPrices.sort((a, b) => a.Price - b.Price)
-    dispatch(setAllAssets(sortedAssets))
+    dispatch(setAllAssets(InstrumentDisplayDataWithPrices))
 
     const initialFilterPrice = { topThreshold: 10, bottomThreshold: 0 }
     dispatch(filterAssetsByPrice(initialFilterPrice))
+    dispatch(sortAssetsByPrice(true))
     dispatch(paginateAssetsByLimits({ lowerLimit: 0, upperLimit: 20 }))
   }, [InstrumentDisplayDataWithPrices, dispatch])
 

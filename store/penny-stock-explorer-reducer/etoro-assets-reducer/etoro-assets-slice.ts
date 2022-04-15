@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { InstrumentDisplayData } from '../../../services/api-services/api-services-types'
-import eToroAssetsReducerHelper from './etoro-assets-reducer-helper'
-
 interface EToroAssetsState {
   allAssets: InstrumentDisplayData[]
   filteredAssets: InstrumentDisplayData[]
   paginatedAssets: InstrumentDisplayData[]
+  isAscendingSort: boolean
 }
 
 const initialState: EToroAssetsState = {
   allAssets: [],
   filteredAssets: [],
   paginatedAssets: [],
+  isAscendingSort: true,
 }
 
 const eToroAssetsSlice = createSlice({
@@ -47,10 +47,23 @@ const eToroAssetsSlice = createSlice({
 
       state.paginatedAssets = assets.slice(lowerLimit, upperLimit)
     },
+    sortAssetsByPrice: (state, action: PayloadAction<boolean>) => {
+      const assets = [...state.filteredAssets]
+
+      let sortedAssets
+      if (action.payload) {
+        sortedAssets = assets.sort((a, b) => a.Price - b.Price)
+      } else {
+        sortedAssets = assets.sort((a, b) => b.Price - a.Price)
+      }
+
+      state.filteredAssets = sortedAssets
+      state.isAscendingSort = action.payload
+    },
   },
 })
 
-export const { setAllAssets, filterAssetsByPrice, filterAssetsByName, paginateAssetsByLimits } =
+export const { setAllAssets, filterAssetsByPrice, filterAssetsByName, paginateAssetsByLimits, sortAssetsByPrice } =
   eToroAssetsSlice.actions
 
 export default eToroAssetsSlice.reducer

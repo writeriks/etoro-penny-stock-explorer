@@ -5,12 +5,12 @@ import { Pagination, PaginationItem } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
+import { setPage } from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
+import { paginateAssetsByLimits } from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-slice'
 import eToroAssetsReducerSelector from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-reducer-selector'
+import displayReducerSelector from '../../store/penny-stock-explorer-reducer/display-reducer/display-reducer-selector'
 
 import styles from '../../styles/PaginationContainer.module.scss'
-import displayReducerSelector from '../../store/penny-stock-explorer-reducer/display-reducer/display-reducer-selector'
-import { paginateAssetsByLimits } from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-slice'
-import { setPage } from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
 
 const PaginationContainer = () => {
   const pageLimit = 20 // number of items in page

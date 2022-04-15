@@ -9,6 +9,7 @@ import {
   filterAssetsByName,
   filterAssetsByPrice,
   paginateAssetsByLimits,
+  sortAssetsByPrice,
 } from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-slice'
 import { filterObject } from '../types/types'
 
@@ -55,6 +56,7 @@ class FilterPanelHelper {
   handlePaginationDispatch = () => {
     store.dispatch(paginateAssetsByLimits({ lowerLimit: 0, upperLimit: 20 }))
     store.dispatch(setPage(1))
+    //store.dispatch(sortAssetsByPrice(true))
   }
 }
 

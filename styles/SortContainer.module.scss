@@ -1,0 +1,10 @@
+.sortContainer {
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+
+  .sortArrow {
+    padding-left: 5px;
+    cursor: pointer;
+  }
+}

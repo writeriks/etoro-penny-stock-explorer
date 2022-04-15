@@ -1,5 +1,6 @@
 import { InstrumentDisplayData } from '../../../services/api-services/api-services-types'
 
+// DELETE IF NOT NECESSARY
 class EToroAssetsReducerHelper {
   filterAssetsForThresholds = (
     tempAllAssets: InstrumentDisplayData[],

@@ -14,6 +14,10 @@ class EToroAssetsReducerSelector {
     pennyStockExplorerReducerSelector.getEtoroAssetsReducer,
     (eToroAssets) => eToroAssets.paginatedAssets
   )
+  getIsAscendingSort = createSelector(
+    pennyStockExplorerReducerSelector.getEtoroAssetsReducer,
+    (eToroAssets) => eToroAssets.isAscendingSort
+  )
 }
 
 const eToroAssetsReducerSelector = new EToroAssetsReducerSelector()
