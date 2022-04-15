@@ -37,7 +37,6 @@ class FilterPanelHelper {
   }
 
   onTopThresholdChange = (value: string) => {
-    console.log('🚀 ~ file: filter-panel-helper.ts ~ line 40 ~ FilterPanelHelper ~ value', value)
     if (value) {
       store.dispatch(setTopThreshold(parseInt(value)))
     } else {

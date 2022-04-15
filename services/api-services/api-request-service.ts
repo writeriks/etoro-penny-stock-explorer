@@ -1,3 +1,5 @@
+import { store } from '../../store/create-store'
+import { setErrorMEssage } from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
 import { getEtoroAssets, getEtoroPrices } from './api-requests'
 import { EToroAssets, InstrumentDisplayData, InstrumentID, PricesObject } from './api-services-types'
 
@@ -14,7 +16,7 @@ class ApiRequestService {
       }
       return InstrumentDisplayDatas
     } catch (error) {
-      console.log('Error on fetching assaets')
+      store.dispatch(setErrorMEssage('Error on fetching assaets'))
       return []
     }
   }
@@ -39,7 +41,7 @@ class ApiRequestService {
 
       return pricesArray
     } catch (error) {
-      console.log('Error on fetching prices')
+      store.dispatch(setErrorMEssage('Error on fetching prices'))
       return []
     }
   }
