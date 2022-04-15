@@ -56,7 +56,6 @@ class FilterPanelHelper {
   handlePaginationDispatch = () => {
     store.dispatch(paginateAssetsByLimits({ lowerLimit: 0, upperLimit: 20 }))
     store.dispatch(setPage(1))
-    //store.dispatch(sortAssetsByPrice(true))
   }
 }
 
