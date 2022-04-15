@@ -2,12 +2,12 @@ import React from 'react'
 
 import { Card, CardContent, Typography } from '@mui/material'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import stockGridHelper from './stock-grid-helper'
 import { InstrumentDisplayData } from '../../services/api-services/api-services-types'
 
 import styles from '../../styles/StocksGridList.module.scss'
-import Link from 'next/link'
 
 interface StockInfoProps {
   stock: InstrumentDisplayData
@@ -19,12 +19,14 @@ const StockInfo: React.FC<StockInfoProps> = ({ stock }) => {
       <Card sx={{ minWidth: 275, height: 150 }}>
         <CardContent>
           <section className={styles.stockInfoRow}>
-            <Image
-              src={stock.Images[0].Uri}
-              width={stock.Images[0].Width}
-              height={stock.Images[0].Height}
-              alt="image"
-            />
+            <div className={styles.stockImage}>
+              <Image
+                src={stock.Images[0].Uri}
+                width={stock.Images[0].Width}
+                height={stock.Images[0].Height}
+                alt="image"
+              />
+            </div>
             <Typography
               className={styles.stockSymbol}
               sx={{ fontSize: 15, fontWeight: 600 }}
