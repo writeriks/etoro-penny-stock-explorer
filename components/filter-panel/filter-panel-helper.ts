@@ -20,13 +20,13 @@ class FilterPanelHelper {
     if (!isValidated) {
       return
     }
-    this.handlePaginationDispatch()
     if (assetName) {
       store.dispatch(filterAssetsByName(assetName))
+      this.handlePaginationDispatch()
       return
     }
     store.dispatch(filterAssetsByPrice({ topThreshold, bottomThreshold, stockIndustryId, instrumentTypeId }))
-    //this.handlePaginationDispatch()
+    this.handlePaginationDispatch()
   }
 
   validateData = (topThreshold: number, bottomThreshold: number): boolean => {
