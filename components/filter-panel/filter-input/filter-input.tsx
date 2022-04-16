@@ -2,9 +2,9 @@ import React, { ChangeEvent } from 'react'
 
 import { AccordionDetails, FormControl, Input, InputLabel } from '@mui/material'
 
-import styles from '../../styles/FilterPanel.module.scss'
+import styles from '../../../styles/FilterPanel.module.scss'
 
-interface InputComponentProps {
+interface FilterInputProps {
   className: string
   id: string
   label: string
@@ -15,7 +15,7 @@ interface InputComponentProps {
   startAdornment?: React.ReactNode
 }
 
-const InputComponent: React.FC<InputComponentProps> = ({
+const FilterInput: React.FC<FilterInputProps> = ({
   className,
   id,
   label,
@@ -39,4 +39,4 @@ const InputComponent: React.FC<InputComponentProps> = ({
   </AccordionDetails>
 )
 
-export default InputComponent
+export default FilterInput

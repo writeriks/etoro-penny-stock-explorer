@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { InstrumentDisplayData } from '../../../services/api-services/api-services-types'
+
 interface EToroAssetsState {
   allAssets: InstrumentDisplayData[]
   filteredAssets: InstrumentDisplayData[]
@@ -21,12 +22,22 @@ const eToroAssetsSlice = createSlice({
     setAllAssets: (state, action: PayloadAction<InstrumentDisplayData[]>) => {
       state.allAssets = action.payload
     },
-    filterAssetsByPrice: (state, action: PayloadAction<{ topThreshold: number; bottomThreshold: number }>) => {
-      const { topThreshold, bottomThreshold } = action.payload
+    filterAssetsByPrice: (
+      state,
+      action: PayloadAction<{ topThreshold: number; bottomThreshold: number; stockIndustryId: number; instrumentTypeId: number }>
+    ) => {
+      const { topThreshold, bottomThreshold, stockIndustryId, instrumentTypeId } = action.payload
 
       const tempAllAssets = [...state.allAssets]
 
-      const filtered = tempAllAssets.filter((asset) => asset.Price <= topThreshold && asset.Price >= bottomThreshold)
+      let filtered: InstrumentDisplayData[] = []
+      if (stockIndustryId) {
+        filtered = tempAllAssets.filter((asset) => asset.Price <= topThreshold && asset.Price >= bottomThreshold && asset.StocksIndustryID === stockIndustryId)
+      } else if (instrumentTypeId) {
+        filtered = tempAllAssets.filter((asset) => asset.Price <= topThreshold && asset.Price >= bottomThreshold && asset.InstrumentTypeID === instrumentTypeId)
+      } else {
+        filtered = tempAllAssets.filter((asset) => asset.Price <= topThreshold && asset.Price >= bottomThreshold)
+      }
 
       state.filteredAssets = filtered
     },
@@ -63,7 +74,6 @@ const eToroAssetsSlice = createSlice({
   },
 })
 
-export const { setAllAssets, filterAssetsByPrice, filterAssetsByName, paginateAssetsByLimits, sortAssetsByPrice } =
-  eToroAssetsSlice.actions
+export const { setAllAssets, filterAssetsByPrice, filterAssetsByName, paginateAssetsByLimits, sortAssetsByPrice } = eToroAssetsSlice.actions
 
 export default eToroAssetsSlice.reducer

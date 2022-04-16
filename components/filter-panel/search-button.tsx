@@ -12,9 +12,12 @@ const SearchButton = () => {
   const topThreshold = useSelector(displayReducerSelector.getTopThreshold)
   const bottomThreshold = useSelector(displayReducerSelector.getBottomThreshold)
   const assetName = useSelector(displayReducerSelector.getAssetName)
+  const stockIndustryId = useSelector(displayReducerSelector.getStockIndustryId)
+  const instrumentTypeId = useSelector(displayReducerSelector.getInstrumentTypeId)
+
   return (
     <Button
-      onClick={() => filterPanelHelper.handleSearch({ assetName, topThreshold, bottomThreshold })}
+      onClick={() => filterPanelHelper.handleSearch({ assetName, topThreshold, bottomThreshold, stockIndustryId, instrumentTypeId })}
       className={styles.searchButton}
       variant="contained"
     >

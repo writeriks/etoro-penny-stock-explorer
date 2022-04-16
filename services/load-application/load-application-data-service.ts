@@ -1,10 +1,5 @@
 import apiRequestService from '../api-services/api-request-service'
-import {
-  InstrumentDisplayData,
-  InstrumentID,
-  PricesObject,
-  unwantedAssetTypes,
-} from '../api-services/api-services-types'
+import { InstrumentDisplayData, InstrumentID, PricesObject, unwantedAssetTypes } from '../api-services/api-services-types'
 
 class LoadApplicationDataService {
   fetchAssetsOnServerSide = async () => {
@@ -12,14 +7,13 @@ class LoadApplicationDataService {
 
     const filteredInsrumentDisplayDatas = this.filterUnwantedAssets(InstrumentDisplayDatas)
 
-    const InstrumentIDs: InstrumentID[] = filteredInsrumentDisplayDatas.map(
-      (instrumentData) => instrumentData.InstrumentID
-    )
+    const InstrumentIDs: InstrumentID[] = filteredInsrumentDisplayDatas.map((instrumentData) => instrumentData.InstrumentID)
 
     const prices: PricesObject[] = await apiRequestService.loadAssetPricesInBulks(InstrumentIDs)
 
     const InstrumentDisplayDataWithPrices = this.mergePricesWithAssets(filteredInsrumentDisplayDatas, prices)
     const upToDateFilteredInstrumentWithPrices = this.filterNotUpdatedAssets(InstrumentDisplayDataWithPrices)
+
     return upToDateFilteredInstrumentWithPrices
   }
 
@@ -37,10 +31,7 @@ class LoadApplicationDataService {
     })
   }
 
-  mergePricesWithAssets = (
-    InstrumentDisplayDatas: InstrumentDisplayData[],
-    prices: PricesObject[]
-  ): InstrumentDisplayData[] =>
+  mergePricesWithAssets = (InstrumentDisplayDatas: InstrumentDisplayData[], prices: PricesObject[]): InstrumentDisplayData[] =>
     InstrumentDisplayDatas.map((instrumentData) => {
       const filteredPriceObject = prices.filter((price) => instrumentData.InstrumentID === price.InstrumentId)[0]
 

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { InstrumentTypeID, StockIndustryID } from '../../../services/constants'
 
 interface DisplayState {
   globalLoading: boolean
@@ -7,6 +8,8 @@ interface DisplayState {
   errorMessage: string
   assetName: string
   pageNumber: number
+  stockIndustryId: number
+  instrumentTypeId: number
 }
 
 const initialState: DisplayState = {
@@ -16,6 +19,8 @@ const initialState: DisplayState = {
   errorMessage: '',
   assetName: '',
   pageNumber: 1,
+  stockIndustryId: 0,
+  instrumentTypeId: 0,
 }
 
 const displaySlice = createSlice({
@@ -40,10 +45,14 @@ const displaySlice = createSlice({
     setPage: (state, action: PayloadAction<number>) => {
       state.pageNumber = action.payload
     },
+    setIndustryType: (state, action: PayloadAction<{ stockIndustryId: number; instrumentTypeId: number }>) => {
+      const { stockIndustryId, instrumentTypeId } = action.payload
+      state.stockIndustryId = stockIndustryId
+      state.instrumentTypeId = instrumentTypeId
+    },
   },
 })
 
-export const { setLoading, setTopThreshold, setBottomThreshold, setAssetName, setErrorMEssage, setPage } =
-  displaySlice.actions
+export const { setLoading, setTopThreshold, setBottomThreshold, setAssetName, setErrorMEssage, setPage, setIndustryType } = displaySlice.actions
 
 export default displaySlice.reducer

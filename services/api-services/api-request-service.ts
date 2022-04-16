@@ -29,14 +29,12 @@ class ApiRequestService {
       let lowestLimit = 0
       let highestLimit = batchLimit
       const pricesArray: PricesObject[] = []
-      let batchNumber = 1
-      while (highestLimit < totalCount) {
+      while (highestLimit <= totalCount) {
         const batchedStocks: InstrumentID[] = instrumentIds.slice(lowestLimit, highestLimit)
         const pricesResp = await getEtoroPrices(batchedStocks)
         pricesArray.push(...pricesResp)
         lowestLimit += batchLimit
         highestLimit += batchLimit
-        batchNumber++
       }
 
       return pricesArray

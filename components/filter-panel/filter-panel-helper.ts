@@ -1,7 +1,9 @@
+import { IndustryType, insdustryOptions } from '../../services/constants'
 import { store } from '../../store/create-store'
 import {
   setBottomThreshold,
   setErrorMEssage,
+  setIndustryType,
   setPage,
   setTopThreshold,
 } from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
@@ -13,18 +15,18 @@ import {
 import { filterObject } from '../types/types'
 
 class FilterPanelHelper {
-  handleSearch = ({ assetName, topThreshold, bottomThreshold }: filterObject) => {
+  handleSearch = ({ assetName, topThreshold, bottomThreshold, stockIndustryId, instrumentTypeId }: filterObject) => {
     const isValidated = this.validateData(topThreshold, bottomThreshold)
     if (!isValidated) {
       return
     }
+    this.handlePaginationDispatch()
     if (assetName) {
       store.dispatch(filterAssetsByName(assetName))
-      this.handlePaginationDispatch()
       return
     }
-    store.dispatch(filterAssetsByPrice({ topThreshold, bottomThreshold }))
-    this.handlePaginationDispatch()
+    store.dispatch(filterAssetsByPrice({ topThreshold, bottomThreshold, stockIndustryId, instrumentTypeId }))
+    //this.handlePaginationDispatch()
   }
 
   validateData = (topThreshold: number, bottomThreshold: number): boolean => {
@@ -55,6 +57,19 @@ class FilterPanelHelper {
   handlePaginationDispatch = () => {
     store.dispatch(paginateAssetsByLimits({ lowerLimit: 0, upperLimit: 20 }))
     store.dispatch(setPage(1))
+  }
+
+  handleIndustryTypeChange = (value: string) => {
+    const selectedIndustry = insdustryOptions.find((industry) => industry.label === value) as IndustryType
+    const { instrumentTypeId, stockIndustryId } = selectedIndustry
+    store.dispatch(setIndustryType({ stockIndustryId, instrumentTypeId }))
+  }
+
+  getSelectedIndustryType = (stockIndustryId: number, instrumentTypeId: number) => {
+    if (instrumentTypeId) {
+      return insdustryOptions.find((industry) => industry.instrumentTypeId === instrumentTypeId)?.label
+    }
+    return insdustryOptions.find((industry) => industry.stockIndustryId === stockIndustryId)?.label
   }
 }
 

@@ -16,7 +16,7 @@ const useInitializeData = (InstrumentDisplayDataWithPrices: InstrumentDisplayDat
   const initiateData = useCallback(async (): Promise<void> => {
     dispatch(setAllAssets(InstrumentDisplayDataWithPrices))
 
-    const initialFilterPrice = { topThreshold: 10, bottomThreshold: 0 }
+    const initialFilterPrice = { topThreshold: 10, bottomThreshold: 0, stockIndustryId: 0, instrumentTypeId: 0 }
     dispatch(filterAssetsByPrice(initialFilterPrice))
     dispatch(sortAssetsByPrice(true))
     dispatch(paginateAssetsByLimits({ lowerLimit: 0, upperLimit: 20 }))

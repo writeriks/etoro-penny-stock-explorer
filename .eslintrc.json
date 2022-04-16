@@ -46,7 +46,7 @@
     "class-methods-use-this": "off",
     "react/jsx-key": ["error"],
     "curly": [2, "all"],
-    "max-len": ["error", { "code": 140 }],
+    "max-len": ["error", { "code": 160 }],
     // to fix false positive of no-shadow rule with ENUMs - https://github.com/typescript-eslint/typescript-eslint/issues/2483
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",
