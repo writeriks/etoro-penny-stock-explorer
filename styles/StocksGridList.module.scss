@@ -8,24 +8,38 @@
   .stockInfo {
     padding: 10px;
 
-    .stockImage {
-      width: 30px;
-      height: 30px;
-    }
-
-    .stockInfoRow {
+    .stockInfoContainer {
       display: flex;
-      align-items: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      flex-direction: row;
+      width: 100%;
 
-      .stockSymbol {
-        margin-bottom: 0 !important;
+      .stockInfoNameContainer {
+        width: 50%;
+
+        .stockImage {
+          width: 30px;
+          height: 30px;
+        }
+
+        .stockInfoRow {
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          .stockSymbol {
+            margin-bottom: 0 !important;
+          }
+        }
+
+        .stockInfoPadding {
+          padding-left: 8px;
+        }
       }
 
-      .stockFullName {
-        padding-left: 8px;
+      .stockInfoStatsContainer {
+        width: 50%;
       }
     }
   }
