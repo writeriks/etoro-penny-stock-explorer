@@ -11,8 +11,9 @@ import displayReducerSelector from '../../store/penny-stock-explorer-reducer/dis
 
 import filterPanelHelper from './filter-panel-helper'
 
-import styles from '../../styles/FilterPanel.module.scss'
 import { insdustryOptions } from '../../services/constants'
+
+import styles from '../../styles/FilterPanel.module.scss'
 
 const InputSection = () => {
   const topThreshold = useSelector(displayReducerSelector.getTopThreshold)

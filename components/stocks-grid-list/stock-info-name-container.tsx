@@ -12,6 +12,8 @@ interface StockInfoNameContainerProps {
 }
 
 const StockInfoNameContainer: React.FC<StockInfoNameContainerProps> = ({ stock }) => {
+  const typographyRowStyle = { fontWeight: 600, width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
+  const stockSymbolTypographyStyle = { fontWeight: 600 }
   return (
     <div className={styles.stockInfoNameContainer}>
       <StockInfoRow
@@ -21,32 +23,33 @@ const StockInfoNameContainer: React.FC<StockInfoNameContainerProps> = ({ stock }
         imageHeight={stock.Images[0].Height}
         stockSymbol={stock.SymbolFull}
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
+        typographyStyle={{ fontSize: 15, ...stockSymbolTypographyStyle }}
         infoData={stock.InstrumentDisplayName}
-        rowFontSize={15}
-        rowFontWeight={600}
       />
 
       <StockInfoRow
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
+        typographyStyle={{ fontSize: 11, ...typographyRowStyle }}
         infoData={stock.InstrumentDisplayName}
-        rowFontSize={11}
-        rowFontWeight={600}
       />
       <StockInfoRow
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
+        typographyStyle={{ fontSize: 11, ...typographyRowStyle }}
         infoData={stockGridHelper.convertIsoDateToReadableDate(stock.ToTime)}
-        rowFontSize={11}
-        rowFontWeight={600}
-        rowTitle="Source:"
+        rowTitle="Date:"
       />
 
-      <StockInfoRow rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`} infoData={stock.PriceSource} rowFontSize={12} rowTitle="Source" />
+      <StockInfoRow
+        rowClass={`${styles.stockInfoRow}  ${styles.stockInfoPadding}`}
+        typographyStyle={{ fontSize: 12, ...typographyRowStyle }}
+        infoData={stock.PriceSource}
+        rowTitle="Source"
+      />
 
       <StockInfoRow
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
+        typographyStyle={{ fontSize: 15, fontWeight: 600, width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
         infoData={stock.Price.toFixed(2)}
-        rowFontSize={15}
-        rowFontWeight={600}
         rowTitle="Price:"
       />
     </div>

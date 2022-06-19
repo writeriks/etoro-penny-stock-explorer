@@ -34,3 +34,5 @@ export const insdustryOptions: IndustryType[] = [
   { label: 'Services', instrumentTypeId: InstrumentTypeID.none, stockIndustryId: StockIndustryID.services },
   { label: 'Utilities', instrumentTypeId: InstrumentTypeID.none, stockIndustryId: StockIndustryID.utilities },
 ]
+
+export const PRICE_SOURCE_NASDAQ = 'NASDAQ'

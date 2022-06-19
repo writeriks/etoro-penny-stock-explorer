@@ -6,6 +6,8 @@ import StockInfoNameContainer from './stock-info-name-container'
 
 import { InstrumentDisplayData } from '../../services/api-services/api-services-types'
 
+import { StockStatsDetails } from './stock-stats-details'
+
 import styles from '../../styles/StocksGridList.module.scss'
 
 interface StockInfoProps {
@@ -19,7 +21,7 @@ const StockInfo: React.FC<StockInfoProps> = ({ stock }) => {
         <CardContent>
           <div className={styles.stockInfoContainer}>
             <StockInfoNameContainer stock={stock} />
-            <div className={styles.stockInfoStatsContainer}></div>
+            <StockStatsDetails symbol={stock.SymbolFull} instrumentTypeID={stock.InstrumentTypeID} priceSource={stock.PriceSource} />
           </div>
         </CardContent>
       </Card>

@@ -46,3 +46,24 @@ export enum unwantedAssetTypes {
   commodityExchangeID = 2,
   indicesExchangeID = 3,
 }
+
+export interface AssetStats {
+  historical: AssetStatsHistorical[]
+  symbol: string
+}
+
+export interface AssetStatsHistorical {
+  adjClose: number
+  change: number
+  changeOverTime: number
+  changePercent: number
+  close: number
+  date: string
+  high: number
+  label: string
+  low: number
+  open: number
+  unadjustedVolume: number
+  volume: number
+  vwap: number
+}
