@@ -25,7 +25,7 @@ class LoadApplicationDataService {
       //@ts-ignore date difference
       const daysDifference = Math.abs(toDate - instrumentDate) / (1000 * 3600 * 24)
 
-      if (daysDifference < 3) {
+      if (daysDifference < 4) {
         return instrument
       }
     })

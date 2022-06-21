@@ -7,6 +7,8 @@ const etoroCandlePath = 'https://candle.etoro.com'
 const chartsTodayPath = '/quickcharts.json/today'
 const amountOfPriceAndClientID = `/1?client_request_id=${process.env.CLIENT_REQUEST_ID}`
 
+const fmpCloudApiKey = process.env.NEXT_PUBLIC_FPM_API_KEY
+
 export const getEtoroAssets = async (bulkNumber: number, totalBulks: number): Promise<EToroAssets> => {
   const res = await fetch(etoroStaticPath + getEtoroAssetsPath + `/bulk?bulkNumber=${bulkNumber}&cv=${process.env.CV_INFO}&totalBulks=${totalBulks}`)
   return res.json()
@@ -17,7 +19,7 @@ export const getEtoroPrices = async (ids: number[]): Promise<PricesObject[]> => 
 }
 
 export const getAssetStats = async (symbol: string): Promise<AssetStats> => {
-  const res = await fetch(`https://fmpcloud.io/api/v3/historical-price-full/${symbol}?timeseries=14&apikey=8c702d881d4e0f46482e04e1513f3fe4`)
+  const res = await fetch(`https://fmpcloud.io/api/v3/historical-price-full/${symbol}?timeseries=14&apikey=${fmpCloudApiKey}`)
   return res.json()
 }
 ;('https://www.etoro.com/sapi/trade-real/instruments?InstrumentDataFilters=Activity,Rates,ActivityInExchange')

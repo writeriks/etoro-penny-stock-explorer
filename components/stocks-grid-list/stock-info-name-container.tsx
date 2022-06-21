@@ -6,14 +6,16 @@ import { InstrumentDisplayData } from '../../services/api-services/api-services-
 
 import styles from '../../styles/StocksGridList.module.scss'
 import stockGridHelper from './stock-grid-helper'
+import { SxProps } from '@mui/material'
+import { Theme } from '@emotion/react'
 
 interface StockInfoNameContainerProps {
   stock: InstrumentDisplayData
 }
 
 const StockInfoNameContainer: React.FC<StockInfoNameContainerProps> = ({ stock }) => {
-  const typographyRowStyle = { fontWeight: 600, width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
-  const stockSymbolTypographyStyle = { fontWeight: 600 }
+  const typographyRowStyle: SxProps<Theme> = { fontWeight: 600, width: '50%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
+  const stockSymbolTypographyStyle: SxProps<Theme> = { fontWeight: 600 }
   return (
     <div className={styles.stockInfoNameContainer}>
       <StockInfoRow
@@ -23,34 +25,37 @@ const StockInfoNameContainer: React.FC<StockInfoNameContainerProps> = ({ stock }
         imageHeight={stock.Images[0].Height}
         stockSymbol={stock.SymbolFull}
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
-        typographyStyle={{ fontSize: 15, ...stockSymbolTypographyStyle }}
+        infoDataStyle={{ fontSize: 15, ...stockSymbolTypographyStyle }}
         infoData={stock.InstrumentDisplayName}
       />
 
       <StockInfoRow
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
-        typographyStyle={{ fontSize: 11, ...typographyRowStyle }}
+        infoDataStyle={{ fontSize: 13, ...typographyRowStyle }}
         infoData={stock.InstrumentDisplayName}
       />
       <StockInfoRow
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
-        typographyStyle={{ fontSize: 11, ...typographyRowStyle }}
+        infoDataStyle={{ fontSize: 13, ...typographyRowStyle }}
+        rowTitleStyle={{ fontSize: 13, ...typographyRowStyle }}
         infoData={stockGridHelper.convertIsoDateToReadableDate(stock.ToTime)}
-        rowTitle="Date:"
+        rowTitle="Date"
       />
 
       <StockInfoRow
         rowClass={`${styles.stockInfoRow}  ${styles.stockInfoPadding}`}
-        typographyStyle={{ fontSize: 12, ...typographyRowStyle }}
+        infoDataStyle={{ fontSize: 13, ...typographyRowStyle }}
+        rowTitleStyle={{ fontSize: 13, ...typographyRowStyle }}
         infoData={stock.PriceSource}
         rowTitle="Source"
       />
 
       <StockInfoRow
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
-        typographyStyle={{ fontSize: 15, fontWeight: 600, width: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+        infoDataStyle={{ fontSize: 13, ...typographyRowStyle }}
+        rowTitleStyle={{ fontSize: 13, ...typographyRowStyle }}
         infoData={stock.Price.toFixed(2)}
-        rowTitle="Price:"
+        rowTitle="Price"
       />
     </div>
   )

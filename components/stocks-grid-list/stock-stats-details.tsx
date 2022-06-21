@@ -1,38 +1,49 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import CircularProgress from '@mui/material/CircularProgress'
-
-import stockGridHelper from './stock-grid-helper'
+import { StockInfoRow } from './stock-info-row'
 
 import { AssetStatsHistorical } from '../../services/api-services/api-services-types'
-import { InstrumentTypeID, PRICE_SOURCE_NASDAQ } from '../../services/constants'
 
 import styles from '../../styles/StocksGridList.module.scss'
+import { SxProps, Theme } from '@mui/material'
+import stockGridHelper from './stock-grid-helper'
 interface StockStatsDetailsProps {
-  symbol: string
-  instrumentTypeID: InstrumentTypeID
-  priceSource: string
+  assetStats: AssetStatsHistorical[]
 }
 
-export const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ symbol, instrumentTypeID, priceSource }) => {
-  const [assetStats, setAssetStats] = useState<AssetStatsHistorical[]>([])
-
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-
-  const canGetStats = instrumentTypeID !== InstrumentTypeID.crpyto && priceSource === PRICE_SOURCE_NASDAQ
-
-  useEffect(() => {
-    async function fetchAssetStats() {
-      const stats = canGetStats ? await stockGridHelper.fetchAssetStats(symbol) : []
-      setAssetStats(stats as AssetStatsHistorical[])
-      setIsLoading(false)
-    }
-    fetchAssetStats()
-  }, [symbol, instrumentTypeID, priceSource, canGetStats])
-
+const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ assetStats }) => {
+  const infoDataStyle: SxProps<Theme> = {
+    fontSize: 12,
+    fontWeight: 600,
+    width: '50%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }
   return (
-    <div className={styles.stockInfoStatsContainer}>
-      {isLoading ? <CircularProgress /> : <span>{assetStats?.length ? assetStats[0].close : 'No Asset'}</span>}
+    <div className={styles.statDetailInner}>
+      <div className={styles.statDetailRowContainer}>
+        <StockInfoRow
+          rowClass={styles.stockInfoRow}
+          infoData={assetStats[0]?.close.toFixed(2)}
+          rowTitle="Prev Close"
+          infoDataStyle={infoDataStyle}
+          rowTitleStyle={infoDataStyle}
+        />
+      </div>
+      {assetStats.length && (
+        <div className={styles.statDetailRowContainer}>
+          <StockInfoRow
+            rowClass={styles.stockInfoRow}
+            infoData={stockGridHelper.calculateRSI(assetStats).toString()}
+            rowTitle="RSI"
+            infoDataStyle={{ color: '#69DC32', ...infoDataStyle }}
+            rowTitleStyle={infoDataStyle}
+          />
+        </div>
+      )}
     </div>
   )
 }
+
+export default StockStatsDetails
