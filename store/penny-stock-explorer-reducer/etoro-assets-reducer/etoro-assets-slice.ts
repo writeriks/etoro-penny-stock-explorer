@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { InstrumentDisplayData } from '../../../services/api-services/api-services-types'
+import { AssetStats, InstrumentDisplayData } from '../../../services/api-services/api-services-types'
 
 interface EToroAssetsState {
   allAssets: InstrumentDisplayData[]
   filteredAssets: InstrumentDisplayData[]
   paginatedAssets: InstrumentDisplayData[]
   isAscendingSort: boolean
+  paginatedAssetStats: AssetStats[]
 }
 
 const initialState: EToroAssetsState = {
@@ -13,6 +14,7 @@ const initialState: EToroAssetsState = {
   filteredAssets: [],
   paginatedAssets: [],
   isAscendingSort: true,
+  paginatedAssetStats: [],
 }
 
 const eToroAssetsSlice = createSlice({
@@ -58,6 +60,9 @@ const eToroAssetsSlice = createSlice({
 
       state.paginatedAssets = assets.slice(lowerLimit, upperLimit)
     },
+    addPaginatedAssetPrice: (state, action: PayloadAction<AssetStats>) => {
+      state.paginatedAssetStats = [...state.paginatedAssetStats, action.payload]
+    },
     sortAssetsByPrice: (state, action: PayloadAction<boolean>) => {
       const assets = [...state.filteredAssets]
 
@@ -74,6 +79,7 @@ const eToroAssetsSlice = createSlice({
   },
 })
 
-export const { setAllAssets, filterAssetsByPrice, filterAssetsByName, paginateAssetsByLimits, sortAssetsByPrice } = eToroAssetsSlice.actions
+export const { setAllAssets, filterAssetsByPrice, filterAssetsByName, paginateAssetsByLimits, sortAssetsByPrice, addPaginatedAssetPrice } =
+  eToroAssetsSlice.actions
 
 export default eToroAssetsSlice.reducer

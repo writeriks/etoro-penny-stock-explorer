@@ -1,16 +1,21 @@
 import { getAssetStats } from '../../services/api-services/api-requests'
 import { AssetStatsHistorical } from '../../services/api-services/api-services-types'
+import { REST_API_STATUS_OK } from '../../services/constants'
 import { store } from '../../store/create-store'
 import { setErrorMEssage } from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
+import { addPaginatedAssetPrice } from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-slice'
 
 class StockGridHelper {
   convertIsoDateToReadableDate = (isoDate: string) => {
     return isoDate.split('T')[0].split('-').reverse().join('/')
   }
 
-  fetchAssetStats = async (symbol: string) => {
+  loadAssetStats = async (symbol: string) => {
     try {
-      return (await getAssetStats(symbol)).historical
+      const { status, assetStats } = await getAssetStats(symbol)
+      if (status === REST_API_STATUS_OK) {
+        store.dispatch(addPaginatedAssetPrice(assetStats))
+      }
     } catch (error) {
       store.dispatch(setErrorMEssage(`Error on fetching asset statistics: ${error}`))
     }

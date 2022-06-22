@@ -18,8 +18,10 @@ export const getEtoroPrices = async (ids: number[]): Promise<PricesObject[]> => 
   return res.json()
 }
 
-export const getAssetStats = async (symbol: string): Promise<AssetStats> => {
+export const getAssetStats = async (symbol: string): Promise<{ status: number; assetStats: AssetStats }> => {
   const res = await fetch(`https://fmpcloud.io/api/v3/historical-price-full/${symbol}?timeseries=14&apikey=${fmpCloudApiKey}`)
-  return res.json()
+  const assetStats = res.json() as unknown as AssetStats
+  const status = res.status
+  return { status, assetStats }
 }
 ;('https://www.etoro.com/sapi/trade-real/instruments?InstrumentDataFilters=Activity,Rates,ActivityInExchange')

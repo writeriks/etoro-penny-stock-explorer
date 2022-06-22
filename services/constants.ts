@@ -36,3 +36,5 @@ export const insdustryOptions: IndustryType[] = [
 ]
 
 export const PRICE_SOURCE_NASDAQ = 'NASDAQ'
+
+export const REST_API_STATUS_OK = 200

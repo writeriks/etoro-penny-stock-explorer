@@ -9,19 +9,21 @@ import { InstrumentDisplayData } from '../../services/api-services/api-services-
 import { StockStatsDetailsContainer } from './stock-stats-details-container'
 
 import styles from '../../styles/StocksGridList.module.scss'
+import { PRICE_SOURCE_NASDAQ } from '../../services/constants'
 
 interface StockInfoProps {
   stock: InstrumentDisplayData
 }
 
 const StockInfo: React.FC<StockInfoProps> = ({ stock }) => {
+  const canGetStats = stock.PriceSource === PRICE_SOURCE_NASDAQ
   return (
     <div className={styles.stockInfo}>
       <Card sx={{ minWidth: 275, height: 150 }}>
         <CardContent>
           <div className={styles.stockInfoContainer}>
             <StockInfoNameContainer stock={stock} />
-            <StockStatsDetailsContainer symbol={stock.SymbolFull} instrumentTypeID={stock.InstrumentTypeID} priceSource={stock.PriceSource} />
+            {canGetStats && <StockStatsDetailsContainer stock={stock} />}
           </div>
         </CardContent>
       </Card>

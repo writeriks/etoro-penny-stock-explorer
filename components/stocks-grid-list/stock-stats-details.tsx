@@ -2,16 +2,19 @@ import React from 'react'
 
 import { StockInfoRow } from './stock-info-row'
 
-import { AssetStatsHistorical } from '../../services/api-services/api-services-types'
+import { AssetStatsHistorical, InstrumentDisplayData } from '../../services/api-services/api-services-types'
 
 import styles from '../../styles/StocksGridList.module.scss'
 import { SxProps, Theme } from '@mui/material'
 import stockGridHelper from './stock-grid-helper'
+
 interface StockStatsDetailsProps {
   assetStats: AssetStatsHistorical[]
 }
 
 const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ assetStats }) => {
+  const isUP = assetStats[0].change > 0
+  const changeColor = isUP ? '#69DC32' : 'red'
   const infoDataStyle: SxProps<Theme> = {
     fontSize: 12,
     fontWeight: 600,
@@ -37,7 +40,7 @@ const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ assetStats }) => 
             rowClass={styles.stockInfoRow}
             infoData={stockGridHelper.calculateRSI(assetStats).toString()}
             rowTitle="RSI"
-            infoDataStyle={{ color: '#69DC32', ...infoDataStyle }}
+            infoDataStyle={{ color: changeColor, ...infoDataStyle }}
             rowTitleStyle={infoDataStyle}
           />
         </div>
