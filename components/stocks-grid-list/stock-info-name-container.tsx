@@ -1,21 +1,31 @@
 import React from 'react'
 
+import { useSelector } from 'react-redux'
+
+import { Theme } from '@emotion/react'
+
 import { StockInfoRow } from './stock-info-row'
 
-import { InstrumentDisplayData } from '../../services/api-services/api-services-types'
+import eToroAssetsReducerSelector from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-reducer-selector'
 
-import styles from '../../styles/StocksGridList.module.scss'
 import stockGridHelper from './stock-grid-helper'
+
 import { SxProps } from '@mui/material'
-import { Theme } from '@emotion/react'
+import { InstrumentDisplayData } from '../../services/api-services/api-services-types'
+import styles from '../../styles/StocksGridList.module.scss'
 
 interface StockInfoNameContainerProps {
   stock: InstrumentDisplayData
 }
 
 const StockInfoNameContainer: React.FC<StockInfoNameContainerProps> = ({ stock }) => {
-  const typographyRowStyle: SxProps<Theme> = { fontWeight: 600, width: '50%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
+  const paginatedAssetStats = useSelector(eToroAssetsReducerSelector.getPaginateAssetStats)
+  const assetFromSymbol = paginatedAssetStats.filter((asset) => asset.symbol === stock.SymbolFull)
+  const priceColor = stockGridHelper.getPriceColor(assetFromSymbol, stock)
+
   const stockSymbolTypographyStyle: SxProps<Theme> = { fontWeight: 600 }
+  const typographyRowStyle: SxProps<Theme> = { fontWeight: 600, width: '50%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
+
   return (
     <div className={styles.stockInfoNameContainer}>
       <StockInfoRow
@@ -52,7 +62,7 @@ const StockInfoNameContainer: React.FC<StockInfoNameContainerProps> = ({ stock }
 
       <StockInfoRow
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
-        infoDataStyle={{ fontSize: 13, ...typographyRowStyle }}
+        infoDataStyle={{ color: priceColor, fontSize: 13, ...typographyRowStyle }}
         rowTitleStyle={{ fontSize: 13, ...typographyRowStyle }}
         infoData={stock.Price.toFixed(2)}
         rowTitle="Price"

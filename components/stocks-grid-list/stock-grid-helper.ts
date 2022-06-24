@@ -1,19 +1,29 @@
-import { getAssetStats } from '../../services/api-services/api-requests'
-import { AssetStatsHistorical } from '../../services/api-services/api-services-types'
-import { REST_API_STATUS_OK } from '../../services/constants'
 import { store } from '../../store/create-store'
+
 import { setErrorMEssage } from '../../store/penny-stock-explorer-reducer/display-reducer/display-slice'
 import { addPaginatedAssetPrice } from '../../store/penny-stock-explorer-reducer/etoro-assets-reducer/etoro-assets-slice'
+
+import { getAssetStats } from '../../services/api-services/api-requests'
+
+import { AssetStats, AssetStatsHistorical, InstrumentDisplayData } from '../../services/api-services/api-services-types'
 
 class StockGridHelper {
   convertIsoDateToReadableDate = (isoDate: string) => {
     return isoDate.split('T')[0].split('-').reverse().join('/')
   }
 
+  getPriceColor = (assetStats: AssetStats[], stock: InstrumentDisplayData) => {
+    const isAssetExist = assetStats.length > 0
+    const isUP = stock.Price - assetStats[0]?.historical[0]?.close > 0
+    if (isAssetExist) {
+      return isUP ? '#69DC32' : 'red'
+    }
+  }
+
   loadAssetStats = async (symbol: string) => {
     try {
-      const { status, assetStats } = await getAssetStats(symbol)
-      if (status === REST_API_STATUS_OK) {
+      const assetStats = await getAssetStats(symbol)
+      if (assetStats != null) {
         store.dispatch(addPaginatedAssetPrice(assetStats))
       }
     } catch (error) {
