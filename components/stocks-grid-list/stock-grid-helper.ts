@@ -14,10 +14,43 @@ class StockGridHelper {
 
   getPriceColor = (assetStats: AssetStats[], stock: InstrumentDisplayData) => {
     const isAssetExist = assetStats.length > 0
-    const isUP = stock.Price - assetStats[0]?.historical[0]?.close > 0
+    const priceChange = stock.Price - assetStats[0]?.historical[0]?.close
     if (isAssetExist) {
-      return isUP ? '#69DC32' : 'red'
+      return this.getPriceChangeColor(priceChange)
     }
+  }
+
+  getRSIColor = (RSIValue: number) => {
+    if (RSIValue > 70 || RSIValue < 30) {
+      return 'red'
+    }
+  }
+
+  getPriceChangeColor = (priceChange: number) => {
+    return priceChange > 0 ? '#69DC32' : 'red'
+  }
+
+  calculateDailyPriceChangePercentage = (currentPrice: number, closePrice: number) => {
+    return this.calculatePriceChangePercentage(currentPrice, closePrice)
+  }
+
+  calculatePriceChangePercentage = (currentPrice: number, closePrice: number) => {
+    return (currentPrice * 100) / closePrice - 100
+  }
+
+  calculateWeeklyChangePercentage = (currentPrice: number, assetStats: AssetStatsHistorical[]) => {
+    const lastFridayPrice = this.getLastFridayStockClosePrice(assetStats)
+    return this.calculatePriceChangePercentage(currentPrice, lastFridayPrice)
+  }
+
+  getLastFridayStockClosePrice = (assetStats: AssetStatsHistorical[]) => {
+    const stats = assetStats.filter((stat) => {
+      const date = new Date(stat.date)
+      if (date.getDay() === 5) {
+        return stat
+      }
+    })
+    return stats[0].close
   }
 
   loadAssetStats = async (symbol: string) => {
@@ -58,7 +91,7 @@ class StockGridHelper {
     const reversedData = [...historicalData].reverse()
     const prices = reversedData.map((data) => data.adjClose)
 
-    return this.rsi(prices, totalDayPeriod).toFixed(1)
+    return this.rsi(prices, totalDayPeriod)
   }
 }
 

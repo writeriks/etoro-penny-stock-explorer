@@ -24,7 +24,7 @@ const StockInfoNameContainer: React.FC<StockInfoNameContainerProps> = ({ stock }
   const priceColor = stockGridHelper.getPriceColor(assetFromSymbol, stock)
 
   const stockSymbolTypographyStyle: SxProps<Theme> = { fontWeight: 600 }
-  const typographyRowStyle: SxProps<Theme> = { fontWeight: 600, width: '50%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
+  const typographyRowStyle: SxProps<Theme> = { fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }
 
   return (
     <div className={styles.stockInfoNameContainer}>
@@ -46,24 +46,24 @@ const StockInfoNameContainer: React.FC<StockInfoNameContainerProps> = ({ stock }
       />
       <StockInfoRow
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
-        infoDataStyle={{ fontSize: 13, ...typographyRowStyle }}
-        rowTitleStyle={{ fontSize: 13, ...typographyRowStyle }}
+        infoDataStyle={{ fontSize: 13, width: '60%', ...typographyRowStyle }}
+        rowTitleStyle={{ fontSize: 13, width: '40%', ...typographyRowStyle }}
         infoData={stockGridHelper.convertIsoDateToReadableDate(stock.ToTime)}
         rowTitle="Date"
       />
 
       <StockInfoRow
         rowClass={`${styles.stockInfoRow}  ${styles.stockInfoPadding}`}
-        infoDataStyle={{ fontSize: 13, ...typographyRowStyle }}
-        rowTitleStyle={{ fontSize: 13, ...typographyRowStyle }}
+        infoDataStyle={{ fontSize: 13, width: '60%', ...typographyRowStyle }}
+        rowTitleStyle={{ fontSize: 13, width: '40%', ...typographyRowStyle }}
         infoData={stock.PriceSource}
         rowTitle="Source"
       />
 
       <StockInfoRow
         rowClass={`${styles.stockInfoRow} ${styles.stockInfoPadding}`}
-        infoDataStyle={{ color: priceColor, fontSize: 13, ...typographyRowStyle }}
-        rowTitleStyle={{ fontSize: 13, ...typographyRowStyle }}
+        infoDataStyle={{ color: priceColor, width: '60%', fontSize: 13, ...typographyRowStyle }}
+        rowTitleStyle={{ fontSize: 13, width: '40%', ...typographyRowStyle }}
         infoData={stock.Price.toFixed(2)}
         rowTitle="Price"
       />

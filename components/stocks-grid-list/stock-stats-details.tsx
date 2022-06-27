@@ -10,9 +10,10 @@ import stockGridHelper from './stock-grid-helper'
 
 interface StockStatsDetailsProps {
   assetStats: AssetStatsHistorical[]
+  stock: InstrumentDisplayData
 }
 
-const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ assetStats }) => {
+const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ assetStats, stock }) => {
   const infoDataStyle: SxProps<Theme> = {
     fontSize: 13,
     fontWeight: 600,
@@ -20,6 +21,16 @@ const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ assetStats }) => 
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   }
+  const dailyPriceChange = stockGridHelper.calculateDailyPriceChangePercentage(stock.Price, assetStats[0].close)
+  const dailyPriceChangeAbs = Math.abs(dailyPriceChange)
+  const dailyPriceChangeColor = stockGridHelper.getPriceChangeColor(dailyPriceChange)
+
+  const calculateWeeklyChange = stockGridHelper.calculateWeeklyChangePercentage(stock.Price, assetStats)
+  const weeklyPriceChangeAbs = Math.abs(calculateWeeklyChange)
+  const weeklyPriceChangeColor = stockGridHelper.getPriceChangeColor(calculateWeeklyChange)
+
+  const RSIValue = stockGridHelper.calculateRSI(assetStats)
+  const RSIColor = stockGridHelper.getRSIColor(RSIValue)
   return (
     <div className={styles.statDetailInner}>
       <div className={styles.statDetailRowContainer}>
@@ -34,18 +45,27 @@ const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ assetStats }) => 
       <div className={styles.statDetailRowContainer}>
         <StockInfoRow
           rowClass={styles.stockInfoRow}
-          infoData={stockGridHelper.calculateRSI(assetStats).toString()}
-          rowTitle="Change (%)"
-          infoDataStyle={infoDataStyle}
+          infoData={'%' + dailyPriceChangeAbs.toFixed(2)}
+          rowTitle="Change% D"
+          infoDataStyle={{ ...infoDataStyle, color: dailyPriceChangeColor }}
           rowTitleStyle={{ ...infoDataStyle, width: '60%' }}
         />
       </div>
       <div className={styles.statDetailRowContainer}>
         <StockInfoRow
           rowClass={styles.stockInfoRow}
-          infoData={stockGridHelper.calculateRSI(assetStats).toString()}
+          infoData={'%' + weeklyPriceChangeAbs.toFixed(2)}
+          rowTitle="Change% W"
+          infoDataStyle={{ ...infoDataStyle, color: weeklyPriceChangeColor }}
+          rowTitleStyle={{ ...infoDataStyle, width: '60%' }}
+        />
+      </div>
+      <div className={styles.statDetailRowContainer}>
+        <StockInfoRow
+          rowClass={styles.stockInfoRow}
+          infoData={RSIValue.toFixed(1)}
           rowTitle="RSI"
-          infoDataStyle={{ ...infoDataStyle }}
+          infoDataStyle={{ ...infoDataStyle, color: RSIColor }}
           rowTitleStyle={{ ...infoDataStyle, width: '60%' }}
         />
       </div>

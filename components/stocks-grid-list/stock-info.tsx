@@ -20,7 +20,7 @@ const StockInfo: React.FC<StockInfoProps> = ({ stock }) => {
   const canGetStats = stock.PriceSource === PRICE_SOURCE_NASDAQ
   return (
     <div className={styles.stockInfo}>
-      <Card sx={{ minWidth: 275, height: 150 }}>
+      <Card sx={{ minWidth: 275, height: 150, background: 'aliceblue' }}>
         <CardContent>
           <div className={styles.stockInfoContainer}>
             <StockInfoNameContainer stock={stock} />

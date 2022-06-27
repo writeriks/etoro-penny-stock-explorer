@@ -41,7 +41,7 @@ export const StockStatsDetailsContainer: React.FC<StockStatsDetailsContainerProp
       return <Loading />
     }
     if (assetToRender.length) {
-      return <StockStatsDetails assetStats={assetToRender[0].historical} />
+      return <StockStatsDetails assetStats={assetToRender[0].historical} stock={stock} />
     }
     return null
   }
