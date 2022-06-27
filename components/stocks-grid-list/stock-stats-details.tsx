@@ -14,9 +14,8 @@ interface StockStatsDetailsProps {
 
 const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ assetStats }) => {
   const infoDataStyle: SxProps<Theme> = {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 600,
-    width: '50%',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -27,22 +26,29 @@ const StockStatsDetails: React.FC<StockStatsDetailsProps> = ({ assetStats }) => 
         <StockInfoRow
           rowClass={styles.stockInfoRow}
           infoData={assetStats[0]?.close.toFixed(2)}
-          rowTitle="Prev Close"
+          rowTitle="Close (P)"
           infoDataStyle={infoDataStyle}
-          rowTitleStyle={infoDataStyle}
+          rowTitleStyle={{ ...infoDataStyle, width: '60%' }}
         />
       </div>
-      {assetStats.length && (
-        <div className={styles.statDetailRowContainer}>
-          <StockInfoRow
-            rowClass={styles.stockInfoRow}
-            infoData={stockGridHelper.calculateRSI(assetStats).toString()}
-            rowTitle="RSI"
-            infoDataStyle={{ ...infoDataStyle }}
-            rowTitleStyle={infoDataStyle}
-          />
-        </div>
-      )}
+      <div className={styles.statDetailRowContainer}>
+        <StockInfoRow
+          rowClass={styles.stockInfoRow}
+          infoData={stockGridHelper.calculateRSI(assetStats).toString()}
+          rowTitle="Change (%)"
+          infoDataStyle={infoDataStyle}
+          rowTitleStyle={{ ...infoDataStyle, width: '60%' }}
+        />
+      </div>
+      <div className={styles.statDetailRowContainer}>
+        <StockInfoRow
+          rowClass={styles.stockInfoRow}
+          infoData={stockGridHelper.calculateRSI(assetStats).toString()}
+          rowTitle="RSI"
+          infoDataStyle={{ ...infoDataStyle }}
+          rowTitleStyle={{ ...infoDataStyle, width: '60%' }}
+        />
+      </div>
     </div>
   )
 }

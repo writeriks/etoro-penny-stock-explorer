@@ -8,8 +8,9 @@ import { InstrumentDisplayData } from '../../services/api-services/api-services-
 
 import { StockStatsDetailsContainer } from './stock-stats-details-container'
 
-import styles from '../../styles/StocksGridList.module.scss'
 import { PRICE_SOURCE_NASDAQ } from '../../services/constants'
+
+import styles from '../../styles/StocksGridList.module.scss'
 
 interface StockInfoProps {
   stock: InstrumentDisplayData

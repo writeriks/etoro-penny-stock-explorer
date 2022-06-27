@@ -62,7 +62,6 @@ const InputSection = () => {
             Industry
           </InputLabel>
           <NativeSelect
-            defaultValue={0}
             value={filterPanelHelper.getSelectedIndustryType(stockIndustryId, instrumentTypeId)}
             onChange={(e) => filterPanelHelper.handleIndustryTypeChange(e.target.value)}
             inputProps={{
